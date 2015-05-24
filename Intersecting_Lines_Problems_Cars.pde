@@ -107,6 +107,27 @@ void setup() {
   popMatrix();
   popMatrix();
   
+  // Draw horizontal axis label + title
+  pushMatrix();
+  translate(0, LINE_HEIGHT * -1);
+  pushMatrix();
+  scale(1, -1);
+  textAlign(CENTER, CENTER);
+  textFont(bold, 14);
+  text("Number of kilometres driven", 0, 0, X_AXIS_LENGTH, LINE_HEIGHT);
+  scale(1, -1);
+  popMatrix();
+  translate(0, Y_AXIS_LENGTH + LINE_HEIGHT * 2.25);
+  pushMatrix();
+  scale(1, -1);
+  textAlign(CENTER, CENTER);
+  textFont(bold, 14);
+  text("Cost vs. Number of kilometres driven", 0, 0, X_AXIS_LENGTH, LINE_HEIGHT);
+  scale(1, -1);
+  popMatrix();
+  popMatrix();
+  
+  
   // x-axis
   textFont(standard, 14);
   line(0, 0, X_AXIS_LENGTH, 0);
