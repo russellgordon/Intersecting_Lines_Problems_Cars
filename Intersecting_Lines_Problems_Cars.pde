@@ -6,7 +6,7 @@ private static final float LINE_HEIGHT = SCREEN_HEIGHT / 40;   // Height of a li
 
 private static final float LEFT_INDENT = SCREEN_WIDTH / 20;    // Indent from left side of page
 
-private static final float CLASSIC_INTERCEPT = 29;             // Classic Car Rentals starting cost
+private static final int CLASSIC_INTERCEPT = 29;               // Classic Car Rentals starting cost
 private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
 
 
@@ -29,6 +29,8 @@ void setup() {
     
     // Print equation for Classic Car Rentals
     text("Let C be the cost, in dollars, of renting from Classic Car Rentals.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 2);
+    text("C = " + CLASSIC_RATE + "n + " + CLASSIC_INTERCEPT, LEFT_INDENT, LINE_HEIGHT * 3);
+    
 }
 
 // Runs repeatedly
