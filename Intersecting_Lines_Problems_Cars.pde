@@ -6,13 +6,13 @@ private static final float LINE_HEIGHT = SCREEN_HEIGHT / 40;   // Height of a li
 
 private static final float LEFT_INDENT = SCREEN_WIDTH / 20;    // Indent from left side of page
 
-private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.15;                // Classic Car Rentals per KM rate
+private static final int CLASSIC_INTERCEPT = 29;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 47.50;        // Brampton Rent-a-Car Cost for first point
-private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;      // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_COST = 72.25;        // Brampton Rent-a-Car Cost for second point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 275;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_1_COST = 47;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 100;      // Brampton Rent-a-Car distance for first point
+private static final float BRAMPTON_RENT_CAR_2_COST = 67;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 350;      // Brampton Rent-a-Car distance for second point
 
 private static final float BRAMPTON_RENT_CAR_RATE = (BRAMPTON_RENT_CAR_1_COST - BRAMPTON_RENT_CAR_2_COST) / (BRAMPTON_RENT_CAR_1_DISTANCE - BRAMPTON_RENT_CAR_2_DISTANCE);  // Brampton Rent-a-Car per KM rate
 private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_2_COST - BRAMPTON_RENT_CAR_RATE * BRAMPTON_RENT_CAR_2_DISTANCE;           // Brampton Rent-a-Car starting cost
@@ -67,11 +67,11 @@ void setup() {
   text("Distance", LEFT_INDENT * 5, LINE_HEIGHT * 3);
   text("Cost", LEFT_INDENT * 7, LINE_HEIGHT * 3);
   textFont(standard, 14);
-  text((int) BRAMPTON_RENT_CAR_1_DISTANCE, LEFT_INDENT * 5, LINE_HEIGHT * 4);
-  text((int) BRAMPTON_RENT_CAR_2_DISTANCE, LEFT_INDENT * 5, LINE_HEIGHT * 5);
+  text("150", LEFT_INDENT * 5, LINE_HEIGHT * 4);
+  text("350", LEFT_INDENT * 5, LINE_HEIGHT * 5);
   text("500", LEFT_INDENT * 5, LINE_HEIGHT * 6);
-  text("$" + String.format("%.2f", CLASSIC_RATE * BRAMPTON_RENT_CAR_1_DISTANCE + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 4);
-  text("$" + String.format("%.2f", CLASSIC_RATE * BRAMPTON_RENT_CAR_2_DISTANCE + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 5);
+  text("$" + String.format("%.2f", CLASSIC_RATE * 150 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 4);
+  text("$" + String.format("%.2f", CLASSIC_RATE * 350 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 5);
   text("$" + String.format("%.2f", CLASSIC_RATE * 500 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 6);
 
   // Show rate calculation for Brampton Rent-a-Car
@@ -80,12 +80,13 @@ void setup() {
   text("Brampton Rent-a-Car", LEFT_INDENT, LINE_HEIGHT * 7);
   fill(0);
   textFont(standard, 14);
-  text("Rate: " + delta + "y / " + delta + "x = " + String.format("(%.2f - %.2f) / (%.0f - %.0f) = %.2f", BRAMPTON_RENT_CAR_2_COST, BRAMPTON_RENT_CAR_1_COST, BRAMPTON_RENT_CAR_1_DISTANCE, BRAMPTON_RENT_CAR_2_DISTANCE, BRAMPTON_RENT_CAR_RATE), LEFT_INDENT, LINE_HEIGHT * 8);
+  text("Values: $" + String.format("%.2f", BRAMPTON_RENT_CAR_1_COST) + " for " + String.format("%.0f", BRAMPTON_RENT_CAR_1_DISTANCE) + " km, $" + String.format("%.2f", BRAMPTON_RENT_CAR_2_COST) + " for " + String.format("%.0f", BRAMPTON_RENT_CAR_2_DISTANCE) + " km.", LEFT_INDENT, LINE_HEIGHT * 8);
+  text("Rate: " + delta + "y / " + delta + "x = " + String.format("(%.2f - %.2f) / (%.0f - %.0f) = %.2f", BRAMPTON_RENT_CAR_1_COST, BRAMPTON_RENT_CAR_2_COST, BRAMPTON_RENT_CAR_1_DISTANCE, BRAMPTON_RENT_CAR_2_DISTANCE, BRAMPTON_RENT_CAR_RATE), LEFT_INDENT, LINE_HEIGHT * 9);
 
   // Print equation for Brampton Rent-a-Car
   textFont(standard, 14);
-  text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 9);
-  text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 10);
+  text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 10);
+  text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 11);
 
   /*
    * Draw the graph
@@ -175,6 +176,13 @@ void setup() {
   stroke(255, 0, 0);                                                          
   line(0, CLASSIC_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
 
+  // Draw Classic Car Rental points
+  noStroke();
+  fill(255, 0, 0);
+  ellipse(150 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 150 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
+  ellipse(350 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 350 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
+  ellipse(500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
+
   // Draw Brampton Rent-a-Car line
   stroke(0, 0, 255);                                                          
   line(0, BRAMPTON_RENT_CAR_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
@@ -208,4 +216,7 @@ void setup() {
 
 // Runs repeatedly
 void draw() {
+  if (keyPressed == true && key == 's') {
+    saveFrame("output.png");
+  }
 }
