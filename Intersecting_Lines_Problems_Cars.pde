@@ -17,10 +17,10 @@ private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_COST_
 private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
 private static final float Y_AXIS_LENGTH = LEFT_INDENT*8;
 private static final int X_AXIS_SQUARES = 40;
-private static final float SQUARE_SIZE = ceil(X_AXIS_LENGTH/X_AXIS_SQUARES);
-private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE);
+private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
+private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / 500;
-private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
+private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_LENGTH - SQUARE_SIZE_PIXELS) / max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
 private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
 private static final float Y_AXIS_SQUARE_VALUE = ceil(max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) / Y_AXIS_SQUARES);
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
@@ -35,6 +35,8 @@ PFont bold;    // boldface type
 // Runs once
 void setup() {
 
+  println(SQUARE_SIZE_PIXELS);
+  
   // Make canvas letter paper-sized
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -133,14 +135,14 @@ void setup() {
   strokeWeight(1);
   for (int i = 1; i < X_AXIS_SQUARES; i ++) {
     stroke(215);
-    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, Y_AXIS_LENGTH);  // Grid line
+    line(i * SQUARE_SIZE_PIXELS, -5, i * SQUARE_SIZE_PIXELS, Y_AXIS_LENGTH);  // Grid line
     stroke(0);
-    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);              // Tick marks
+    line(i * SQUARE_SIZE_PIXELS, -5, i * SQUARE_SIZE_PIXELS, 5);              // Tick marks
     // Draw scale values every other tick mark
     if (i % 2 == 0) {
       pushMatrix();
       scale(1, -1);
-      text(String.format("%-3.0f", i * X_AXIS_SQUARE_VALUE), i * SQUARE_SIZE, SQUARE_SIZE * 1);  
+      text(String.format("%-3.0f", i * X_AXIS_SQUARE_VALUE), i * SQUARE_SIZE_PIXELS, SQUARE_SIZE_PIXELS * 1);  
       scale(1, -1);
       popMatrix();
     }
@@ -153,14 +155,14 @@ void setup() {
   strokeWeight(1);
   for (int i = 1; i < Y_AXIS_SQUARES; i ++) {
     stroke(215);
-    line(-5, i * SQUARE_SIZE, X_AXIS_LENGTH, i * SQUARE_SIZE);    // Grid line
+    line(-5, i * SQUARE_SIZE_PIXELS, X_AXIS_LENGTH, i * SQUARE_SIZE_PIXELS);    // Grid line
     stroke(0);
-    line(-5, i * SQUARE_SIZE, 5, i * SQUARE_SIZE);                // Tick marks
+    line(-5, i * SQUARE_SIZE_PIXELS, 5, i * SQUARE_SIZE_PIXELS);                // Tick marks
     // Draw scale values every other tick mark
     if (i % 2 == 0) {
       pushMatrix();
       scale(1, -1);
-      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE * 0.75 * -1, i * SQUARE_SIZE * -1);  
+      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
       scale(1, -1);
       popMatrix();
     }
