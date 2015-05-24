@@ -55,12 +55,16 @@ void setup() {
   text("$" + String.format("%.2f", CLASSIC_RATE * 350 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 5);
   text("$" + String.format("%.2f", CLASSIC_RATE * 500 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 6);
   
-  // Calculate rate for Brampton Rent-a-Car
+  // Show rate calculation for Brampton Rent-a-Car
   textFont(bold, 14);
   text("Brampton Rent-a-Car", LEFT_INDENT, LINE_HEIGHT * 7);
   textFont(standard, 14);
   text("Rate: " + delta + "y / " + delta + "x = " + String.format("(%.2f - %.2f) / (350 - 100) = %.2f", BRAMPTON_RENT_CAR_COST_350, BRAMPTON_RENT_CAR_COST_100, BRAMPTON_RENT_CAR_RATE), LEFT_INDENT, LINE_HEIGHT * 8);
 
+  // Print equation for Brampton Rent-a-Car
+  textFont(standard, 14);
+  text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 9);
+  text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 10);
   
 
 }
