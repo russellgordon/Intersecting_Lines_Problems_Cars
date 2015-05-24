@@ -6,13 +6,14 @@ private static final float LINE_HEIGHT = SCREEN_HEIGHT / 40;   // Height of a li
 
 private static final float LEFT_INDENT = SCREEN_WIDTH / 20;    // Indent from left side of page
 
-private static final int CLASSIC_INTERCEPT = 29;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
+private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.15;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 47;        // Brampton Rent-a-Car Cost for first point
-private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 100;      // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_COST = 67;        // Brampton Rent-a-Car Cost for second point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 350;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_1_COST = 47.50;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;      // Brampton Rent-a-Car distance for first point
+private static final float BRAMPTON_RENT_CAR_2_COST = 72.25;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 275;      // Brampton Rent-a-Car distance for second point
+
 private static final float BRAMPTON_RENT_CAR_RATE = (BRAMPTON_RENT_CAR_1_COST - BRAMPTON_RENT_CAR_2_COST) / (BRAMPTON_RENT_CAR_1_DISTANCE - BRAMPTON_RENT_CAR_2_DISTANCE);  // Brampton Rent-a-Car per KM rate
 private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_2_COST - BRAMPTON_RENT_CAR_RATE * BRAMPTON_RENT_CAR_2_DISTANCE;           // Brampton Rent-a-Car starting cost
 
@@ -22,7 +23,7 @@ private static final int X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
 private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / 500;
-private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_LENGTH - SQUARE_SIZE_PIXELS) / max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
+private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
 private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
 private static final float Y_AXIS_SQUARE_VALUE = ceil(max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) / Y_AXIS_SQUARES);
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
@@ -38,7 +39,7 @@ PFont bold;    // boldface type
 void setup() {
 
   println(SQUARE_SIZE_PIXELS);
-  
+
   // Make canvas letter paper-sized
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -160,14 +161,11 @@ void setup() {
     line(-5, i * SQUARE_SIZE_PIXELS, X_AXIS_LENGTH, i * SQUARE_SIZE_PIXELS);    // Grid line
     stroke(0);
     line(-5, i * SQUARE_SIZE_PIXELS, 5, i * SQUARE_SIZE_PIXELS);                // Tick marks
-    // Draw scale values every other tick mark
-    if (i % 2 == 0) {
-      pushMatrix();
-      scale(1, -1);
-      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
-      scale(1, -1);
-      popMatrix();
-    }
+    pushMatrix();
+    scale(1, -1);
+    text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
+    scale(1, -1);
+    popMatrix();
   }
   strokeWeight(1);
   rectMode(CENTER);
