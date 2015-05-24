@@ -49,7 +49,9 @@ void setup() {
 
   // Section title
   textFont(bold, 14);
+  fill(255, 0, 0);
   text("Classic Car Rentals", LEFT_INDENT, LINE_HEIGHT * 1);
+  fill(0);
 
   // Print equation for Classic Car Rentals
   textFont(standard, 14);
@@ -70,7 +72,9 @@ void setup() {
 
   // Show rate calculation for Brampton Rent-a-Car
   textFont(bold, 14);
+  fill(0, 0, 255);
   text("Brampton Rent-a-Car", LEFT_INDENT, LINE_HEIGHT * 7);
+  fill(0);
   textFont(standard, 14);
   text("Rate: " + delta + "y / " + delta + "x = " + String.format("(%.2f - %.2f) / (350 - 100) = %.2f", BRAMPTON_RENT_CAR_COST_350, BRAMPTON_RENT_CAR_COST_100, BRAMPTON_RENT_CAR_RATE), LEFT_INDENT, LINE_HEIGHT * 8);
 
@@ -129,7 +133,7 @@ void setup() {
   line(0, CLASSIC_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
 
   // Draw Brampton Rent-a-Car line
-  stroke(0, 255, 0);                                                          
+  stroke(0, 0, 255);                                                          
   line(0, BRAMPTON_RENT_CAR_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
 
   // Restore current co-ordinate system positions
