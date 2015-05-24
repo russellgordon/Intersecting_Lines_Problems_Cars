@@ -90,11 +90,25 @@ void setup() {
   pushMatrix();
 
   // Draw axes
-  translate(LEFT_INDENT, LINE_HEIGHT * 25);  
+  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 25);  
   scale(1, -1);
   strokeWeight(2);
   
+  // Draw vertical axis label
+  pushMatrix();
+  translate(LEFT_INDENT * -1.1, 0);
+  rotate(radians(90));
+  pushMatrix();
+  scale(1, -1);
+  textAlign(CENTER, CENTER);
+  textFont(bold, 14);
+  text("Cost in dollars", 0, LINE_HEIGHT / 2 * -1, Y_AXIS_LENGTH, LINE_HEIGHT);
+  scale(1, -1);
+  popMatrix();
+  popMatrix();
+  
   // x-axis
+  textFont(standard, 14);
   line(0, 0, X_AXIS_LENGTH, 0);
   // Draw horizontal tick marks
   strokeWeight(1);
@@ -107,7 +121,7 @@ void setup() {
     if (i % 2 == 0) {
       pushMatrix();
       scale(1, -1);
-      text(String.format("%-3.0f", i * X_AXIS_SQUARE_VALUE), i * SQUARE_SIZE - 10, 30);  
+      text(String.format("%-3.0f", i * X_AXIS_SQUARE_VALUE), i * SQUARE_SIZE, SQUARE_SIZE * 1);  
       scale(1, -1);
       popMatrix();
     }
@@ -127,7 +141,7 @@ void setup() {
     if (i % 2 == 0) {
       pushMatrix();
       scale(1, -1);
-      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), -30, i * SQUARE_SIZE * -1 + SQUARE_SIZE / 4);  
+      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE * 0.75 * -1, i * SQUARE_SIZE * -1);  
       scale(1, -1);
       popMatrix();
     }
