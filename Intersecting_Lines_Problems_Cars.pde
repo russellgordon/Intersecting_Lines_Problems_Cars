@@ -14,6 +14,12 @@ private static final float BRAMPTON_RENT_CAR_COST_350 = 67;        // Brampton R
 private static final float BRAMPTON_RENT_CAR_RATE = (BRAMPTON_RENT_CAR_COST_100 - BRAMPTON_RENT_CAR_COST_350) / (100 - 350);  // Brampton Rent-a-Car per KM rate
 private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_COST_350 - BRAMPTON_RENT_CAR_RATE * 350;           // Brampton Rent-a-Car starting cost
 
+private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
+private static final float Y_AXIS_LENGTH = LEFT_INDENT*8;
+private static final int X_AXIS_SQUARES = 35;
+private static final float SQUARE_SIZE = ceil(X_AXIS_LENGTH/X_AXIS_SQUARES);
+private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / 500;
+
 private static final String delta = new String("\u25B3");
 
 
@@ -65,7 +71,36 @@ void setup() {
   textFont(standard, 14);
   text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 9);
   text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 10);
+ 
+  /*
+   * Draw the graph
+   */
+  // Save current co-ordinate system positions 
+  pushMatrix();
   
+  // Draw axes
+  translate(LEFT_INDENT, LINE_HEIGHT * 25);  
+  scale(1, -1);
+  strokeWeight(2);
+  line(0, 0, X_AXIS_LENGTH, 0);
+  line(0, 0, 0, Y_AXIS_LENGTH);
+  strokeWeight(1);
+  for (int i = 1; i < X_AXIS_SQUARES; i ++) {
+    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);   
+  }
+  println();
+
+  // Draw Classic Car Rentals line
+  strokeWeight(2);
+  stroke(255, 0, 0);                                                          
+  line(0, CLASSIC_INTERCEPT, 500 * X_AXIS_SCALE_FACTOR, CLASSIC_RATE * 500 + CLASSIC_INTERCEPT);
+
+  // Draw Brampton Rent-a-Car line
+  stroke(0, 255, 0);                                                          
+  line(0, BRAMPTON_RENT_CAR_INTERCEPT, 500 * X_AXIS_SCALE_FACTOR, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
+  
+  // Restore current co-ordinate system positions
+  popMatrix();                              
 
 }
 
