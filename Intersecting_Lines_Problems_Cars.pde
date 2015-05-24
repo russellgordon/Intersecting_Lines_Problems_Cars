@@ -22,7 +22,7 @@ private static final int X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
 private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
-private static final float Y_AXIS_LENGTH = LEFT_INDENT*8;
+private static final float Y_AXIS_LENGTH = LEFT_INDENT*9;
 private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
 private static final float Y_AXIS_SQUARE_VALUE = ceil((CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) / Y_AXIS_SQUARES);
 private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
@@ -88,6 +88,13 @@ void setup() {
   text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 10);
   text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 11);
 
+  // Show plans for making graph
+  textFont(bold, 14);
+  text("Plans for graph: x-axis", LEFT_INDENT, LINE_HEIGHT * 12);
+  textFont(standard, 14);
+  text("Max value = 500      Number of squares = " + X_AXIS_SQUARES + "     Value per square = 500 / " + X_AXIS_SQUARES + " = " + String.format("%.1f", (float) 500 / X_AXIS_SQUARES), LEFT_INDENT, LINE_HEIGHT * 13);
+  text("Leave as is.  Mark every other square as 25.", LEFT_INDENT, LINE_HEIGHT * 14);
+
   /*
    * Draw the graph
    */
@@ -95,7 +102,7 @@ void setup() {
   pushMatrix();
 
   // Draw axes
-  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 25);  
+  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 30);  
   scale(1, -1);
   strokeWeight(2);
 
@@ -162,11 +169,14 @@ void setup() {
     line(-5, i * SQUARE_SIZE_PIXELS, X_AXIS_LENGTH, i * SQUARE_SIZE_PIXELS);    // Grid line
     stroke(0);
     line(-5, i * SQUARE_SIZE_PIXELS, 5, i * SQUARE_SIZE_PIXELS);                // Tick marks
-    pushMatrix();
-    scale(1, -1);
-    text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
-    scale(1, -1);
-    popMatrix();
+    // Draw scale values every other tick mark
+    if (i % 2 == 0) {
+      pushMatrix();
+      scale(1, -1);
+      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
+      scale(1, -1);
+      popMatrix();
+    }
   }
   strokeWeight(1);
   rectMode(CENTER);
@@ -209,9 +219,9 @@ void setup() {
   textAlign(LEFT);
   textFont(bold, 14);
   fill(0);
-  text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 28);
+  text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 33);
   textFont(standard, 14);
-  text("After " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 29);
+  text("After " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 34);
 }
 
 // Runs repeatedly
