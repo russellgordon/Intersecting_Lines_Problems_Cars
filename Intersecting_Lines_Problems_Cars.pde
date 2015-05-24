@@ -16,9 +16,13 @@ private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_COST_
 
 private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
 private static final float Y_AXIS_LENGTH = LEFT_INDENT*8;
-private static final int X_AXIS_SQUARES = 35;
+private static final int X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE = ceil(X_AXIS_LENGTH/X_AXIS_SQUARES);
+private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE);
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / 500;
+private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
+private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
+private static final float Y_AXIS_SQUARE_VALUE = ceil(max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) / Y_AXIS_SQUARES); 
 
 private static final String delta = new String("\u25B3");
 
@@ -28,7 +32,10 @@ PFont bold;    // boldface type
 
 // Runs once
 void setup() {
-
+  
+  println(max(CLASSIC_RATE * 500 + CLASSIC_INTERCEPT, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT));
+  println(Y_AXIS_SQUARES);
+  
   // Make canvas letter paper-sized
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -60,7 +67,7 @@ void setup() {
   text("$" + String.format("%.2f", CLASSIC_RATE * 150 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 4);
   text("$" + String.format("%.2f", CLASSIC_RATE * 350 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 5);
   text("$" + String.format("%.2f", CLASSIC_RATE * 500 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 6);
-  
+
   // Show rate calculation for Brampton Rent-a-Car
   textFont(bold, 14);
   text("Brampton Rent-a-Car", LEFT_INDENT, LINE_HEIGHT * 7);
@@ -71,37 +78,62 @@ void setup() {
   textFont(standard, 14);
   text("Let C be the cost, in dollars, of renting from Brampton Rent-a-Car.  Let n be the number of kilometers driven.  Then:", LEFT_INDENT, LINE_HEIGHT * 9);
   text("C = " + BRAMPTON_RENT_CAR_RATE + "n + " + String.format("%.2f", BRAMPTON_RENT_CAR_INTERCEPT), LEFT_INDENT, LINE_HEIGHT * 10);
- 
+
   /*
    * Draw the graph
    */
   // Save current co-ordinate system positions 
   pushMatrix();
-  
+
   // Draw axes
   translate(LEFT_INDENT, LINE_HEIGHT * 25);  
   scale(1, -1);
   strokeWeight(2);
+  // x-axis
   line(0, 0, X_AXIS_LENGTH, 0);
-  line(0, 0, 0, Y_AXIS_LENGTH);
+  // Draw horizontal tick marks
   strokeWeight(1);
   for (int i = 1; i < X_AXIS_SQUARES; i ++) {
-    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);   
+    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);
+    // Draw scale values every other tick mark
+    if (i % 2 == 0) {
+      pushMatrix();
+      scale(1, -1);
+      text(String.format("%-3.0f", i * X_AXIS_SQUARE_VALUE), i * SQUARE_SIZE - 10, 30);  
+      scale(1, -1);
+      popMatrix();
+    }
   }
-  println();
+  // y -axis
+  strokeWeight(2);
+  line(0, 0, 0, Y_AXIS_LENGTH);
+  // Draw vertical tick marks
+  strokeWeight(1);
+  for (int i = 1; i < Y_AXIS_SQUARES; i ++) {
+    line(-5, i * SQUARE_SIZE, 5, i * SQUARE_SIZE);
+    // Draw scale values every other tick mark
+    if (i % 2 == 0) {
+      pushMatrix();
+      scale(1, -1);
+      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), -30, i * SQUARE_SIZE * -1 + SQUARE_SIZE / 4);  
+      scale(1, -1);
+      popMatrix();
+    }
+  }
+  strokeWeight(1);
+  rectMode(CENTER);
 
   // Draw Classic Car Rentals line
   strokeWeight(2);
   stroke(255, 0, 0);                                                          
-  line(0, CLASSIC_INTERCEPT, 500 * X_AXIS_SCALE_FACTOR, CLASSIC_RATE * 500 + CLASSIC_INTERCEPT);
+  line(0, CLASSIC_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
 
   // Draw Brampton Rent-a-Car line
   stroke(0, 255, 0);                                                          
-  line(0, BRAMPTON_RENT_CAR_INTERCEPT, 500 * X_AXIS_SCALE_FACTOR, BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT);
-  
-  // Restore current co-ordinate system positions
-  popMatrix();                              
+  line(0, BRAMPTON_RENT_CAR_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (BRAMPTON_RENT_CAR_RATE * 500 + BRAMPTON_RENT_CAR_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
 
+  // Restore current co-ordinate system positions
+  popMatrix();
 }
 
 // Runs repeatedly
