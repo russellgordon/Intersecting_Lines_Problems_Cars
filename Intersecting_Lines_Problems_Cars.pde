@@ -93,12 +93,16 @@ void setup() {
   translate(LEFT_INDENT, LINE_HEIGHT * 25);  
   scale(1, -1);
   strokeWeight(2);
+  
   // x-axis
   line(0, 0, X_AXIS_LENGTH, 0);
   // Draw horizontal tick marks
   strokeWeight(1);
   for (int i = 1; i < X_AXIS_SQUARES; i ++) {
-    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);
+    stroke(215);
+    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, Y_AXIS_LENGTH);  // Grid line
+    stroke(0);
+    line(i * SQUARE_SIZE, -5, i * SQUARE_SIZE, 5);              // Tick marks
     // Draw scale values every other tick mark
     if (i % 2 == 0) {
       pushMatrix();
@@ -108,13 +112,17 @@ void setup() {
       popMatrix();
     }
   }
+  
   // y -axis
   strokeWeight(2);
   line(0, 0, 0, Y_AXIS_LENGTH);
-  // Draw vertical tick marks
+  // Draw vertical tick marks and grid
   strokeWeight(1);
   for (int i = 1; i < Y_AXIS_SQUARES; i ++) {
-    line(-5, i * SQUARE_SIZE, 5, i * SQUARE_SIZE);
+    stroke(215);
+    line(-5, i * SQUARE_SIZE, X_AXIS_LENGTH, i * SQUARE_SIZE);    // Grid line
+    stroke(0);
+    line(-5, i * SQUARE_SIZE, 5, i * SQUARE_SIZE);                // Tick marks
     // Draw scale values every other tick mark
     if (i % 2 == 0) {
       pushMatrix();
