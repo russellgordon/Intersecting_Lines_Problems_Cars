@@ -1,10 +1,12 @@
-// Global constants
-private static final int SCREEN_WIDTH = 850;                   // Width of screen in pixels
-private static final int SCREEN_HEIGHT = 1100;                 // Height of screen in pixels
+// Import required library
+import processing.pdf.*;
 
-private static final float LINE_HEIGHT = SCREEN_HEIGHT / 40;   // Height of a line (for text)
+/*
+ * Global constants
+ */
 
-private static final float LEFT_INDENT = SCREEN_WIDTH / 20;    // Indent from left side of page
+// VALUES TO ADJUST FOR EACH RUN
+private static final String STUDENT = new String("Hepner, Alex");
 
 private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
 private static final float CLASSIC_RATE = 0.12;                // Classic Car Rentals per KM rate
@@ -13,6 +15,17 @@ private static final float BRAMPTON_RENT_CAR_1_COST = 43.50;        // Brampton 
 private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;       // Brampton Rent-a-Car distance for first point
 private static final float BRAMPTON_RENT_CAR_2_COST = 53.50;        // Brampton Rent-a-Car Cost for second point
 private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 250;      // Brampton Rent-a-Car distance for second point
+
+
+// Should be no need to change these values after primary development finished
+private static final String OUTPUT_FILENAME = new String(STUDENT + ".pdf");
+
+private static final int SCREEN_WIDTH = 850;                   // Width of screen in pixels
+private static final int SCREEN_HEIGHT = 1100;                 // Height of screen in pixels
+
+private static final float LINE_HEIGHT = SCREEN_HEIGHT / 40;   // Height of a line (for text)
+
+private static final float LEFT_INDENT = SCREEN_WIDTH / 20;    // Indent from left side of page
 
 private static final float BRAMPTON_RENT_CAR_RATE = (BRAMPTON_RENT_CAR_1_COST - BRAMPTON_RENT_CAR_2_COST) / (BRAMPTON_RENT_CAR_1_DISTANCE - BRAMPTON_RENT_CAR_2_DISTANCE);  // Brampton Rent-a-Car per KM rate
 private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_2_COST - BRAMPTON_RENT_CAR_RATE * BRAMPTON_RENT_CAR_2_DISTANCE;           // Brampton Rent-a-Car starting cost
@@ -49,8 +62,11 @@ void setup() {
   fill(0);              // Black text  
 
   // Create fonts to use later
-  standard = loadFont("Helvetica-14.vlw");      // Helvetica, regular
-  bold = loadFont("Helvetica-Bold-14.vlw");     // Helvetica, boldface
+  standard = createFont("Helvetica", 14);      // Helvetica, regular
+  bold = createFont("Helvetica-Bold", 14);     // Helvetica, boldface
+  
+  // Start writing to PDF file
+  beginRecord(PDF, OUTPUT_FILENAME); 
 
   // Section title
   textFont(bold, 14);
@@ -227,12 +243,13 @@ void setup() {
   text("This means that after " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 35);
   text("Prior to the intersection point, Classic Car Rentals is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 36);
   text("After to the intersection point, Brampton Rent-a-Car is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 37);
+  text("Answers built for: " + STUDENT, LEFT_INDENT, LINE_HEIGHT * 39);
+
+  endRecord(); 
+  noLoop();
   
 }
 
 // Runs repeatedly
 void draw() {
-  if (keyPressed == true && key == 's') {
-    saveFrame("output.png");
-  }
 }
