@@ -6,15 +6,15 @@ import processing.pdf.*;
  */
 
 // VALUES TO ADJUST FOR EACH RUN
-private static final String STUDENT = new String("Hepner, Alex");
+private static final String STUDENT = new String("Walker-Sherman, Jonah");
 
 private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.12;                // Classic Car Rentals per KM rate
+private static final float CLASSIC_RATE = 0.15;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 43.50;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_COST = 47.50;        // Brampton Rent-a-Car Cost for first point
 private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;       // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_COST = 53.50;        // Brampton Rent-a-Car Cost for second point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 250;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 275;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_COST = 72.25;        // Brampton Rent-a-Car Cost for second point
 
 
 // Should be no need to change these values after primary development finished
@@ -36,7 +36,7 @@ private static final int X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
 private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
-private static final float Y_AXIS_LENGTH = LEFT_INDENT*9;
+private static final float Y_AXIS_LENGTH = LEFT_INDENT*11;
 private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
 private static final float Y_AXIS_SQUARE_VALUE = ceil((MAX_COST) / Y_AXIS_SQUARES);
 private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
@@ -120,7 +120,7 @@ void setup() {
   pushMatrix();
 
   // Draw axes
-  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 30);  
+  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 33);  
   scale(1, -1);
   strokeWeight(2);
 
@@ -162,7 +162,7 @@ void setup() {
   line(0, 0, X_AXIS_LENGTH, 0);
   // Draw horizontal tick marks
   strokeWeight(1);
-  for (int i = 1; i < X_AXIS_SQUARES; i ++) {
+  for (int i = 1; i <= X_AXIS_SQUARES; i ++) {
     stroke(215);
     line(i * SQUARE_SIZE_PIXELS, -5, i * SQUARE_SIZE_PIXELS, Y_AXIS_LENGTH);  // Grid line
     stroke(0);
@@ -191,7 +191,7 @@ void setup() {
     if (i % 2 == 0) {
       pushMatrix();
       scale(1, -1);
-      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * 0.75 * -1, i * SQUARE_SIZE_PIXELS * -1);  
+      text(String.format("%-3.0f", i * Y_AXIS_SQUARE_VALUE), SQUARE_SIZE_PIXELS * -1.2, i * SQUARE_SIZE_PIXELS * -1);  
       scale(1, -1);
       popMatrix();
     }
@@ -237,13 +237,13 @@ void setup() {
   textAlign(LEFT);
   textFont(bold, 14);
   fill(0);
-  text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 33);
+  text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 35);
   textFont(standard, 14);
-  text("The co-ordinates are: (" + String.format("%.2f", INTERSECTION_KM) + ", " + String.format("%.2f", INTERSECTION_COST) + ").", LEFT_INDENT, LINE_HEIGHT * 34);
-  text("This means that after " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 35);
-  text("Prior to the intersection point, Classic Car Rentals is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 36);
-  text("After to the intersection point, Brampton Rent-a-Car is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 37);
-  text("Answers built for: " + STUDENT, LEFT_INDENT, LINE_HEIGHT * 39);
+  text("The co-ordinates are: (" + String.format("%.2f", INTERSECTION_KM) + ", " + String.format("%.2f", INTERSECTION_COST) + ").", LEFT_INDENT, LINE_HEIGHT * 36);
+  text("This means that after " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 37);
+  text("Prior to the intersection point, Classic Car Rentals is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 38);
+  text("After to the intersection point, Brampton Rent-a-Car is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 39);
+  text("Answers built for: " + STUDENT, LEFT_INDENT, LINE_HEIGHT * 40);
 
   endRecord(); 
   noLoop();
