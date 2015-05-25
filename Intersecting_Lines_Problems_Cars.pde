@@ -16,6 +16,7 @@ private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 250;      // Brampton 
 
 private static final float BRAMPTON_RENT_CAR_RATE = (BRAMPTON_RENT_CAR_1_COST - BRAMPTON_RENT_CAR_2_COST) / (BRAMPTON_RENT_CAR_1_DISTANCE - BRAMPTON_RENT_CAR_2_DISTANCE);  // Brampton Rent-a-Car per KM rate
 private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_2_COST - BRAMPTON_RENT_CAR_RATE * BRAMPTON_RENT_CAR_2_DISTANCE;           // Brampton Rent-a-Car starting cost
+private static final float MAX_COST = CLASSIC_RATE * 500 + CLASSIC_INTERCEPT;
 
 private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
 private static final int X_AXIS_SQUARES = 40;
@@ -24,7 +25,7 @@ private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
 private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
 private static final float Y_AXIS_LENGTH = LEFT_INDENT*9;
 private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
-private static final float Y_AXIS_SQUARE_VALUE = ceil((CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) / Y_AXIS_SQUARES);
+private static final float Y_AXIS_SQUARE_VALUE = ceil((MAX_COST) / Y_AXIS_SQUARES);
 private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
 private static final float INTERSECTION_COST = BRAMPTON_RENT_CAR_RATE * INTERSECTION_KM + BRAMPTON_RENT_CAR_INTERCEPT;
@@ -72,7 +73,7 @@ void setup() {
   text("500", LEFT_INDENT * 5, LINE_HEIGHT * 6);
   text("$" + String.format("%.2f", CLASSIC_RATE * 150 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 4);
   text("$" + String.format("%.2f", CLASSIC_RATE * 350 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 5);
-  text("$" + String.format("%.2f", CLASSIC_RATE * 500 + CLASSIC_INTERCEPT), LEFT_INDENT * 7, LINE_HEIGHT * 6);
+  text("$" + String.format("%.2f", MAX_COST), LEFT_INDENT * 7, LINE_HEIGHT * 6);
 
   // Show rate calculation for Brampton Rent-a-Car
   textFont(bold, 14);
@@ -90,10 +91,11 @@ void setup() {
 
   // Show plans for making graph
   textFont(bold, 14);
-  text("Plans for graph: x-axis", LEFT_INDENT, LINE_HEIGHT * 12);
+  text("Plans for graph: scale for horizontal and vertical axes", LEFT_INDENT, LINE_HEIGHT * 12);
   textFont(standard, 14);
-  text("Max value = 500      Number of squares = " + X_AXIS_SQUARES + "     Value per square = 500 / " + X_AXIS_SQUARES + " = " + String.format("%.1f", (float) 500 / X_AXIS_SQUARES), LEFT_INDENT, LINE_HEIGHT * 13);
-  text("Leave as is.  Mark every other square as 25.", LEFT_INDENT, LINE_HEIGHT * 14);
+  text("Max value = 500      # of squares = " + X_AXIS_SQUARES + "     Value per square = 500 / " + X_AXIS_SQUARES + " = " + String.format("%.1f", (float) 500 / X_AXIS_SQUARES) + "     Keep value: mark every other square as 25.", LEFT_INDENT, LINE_HEIGHT * 13);
+  String max_cost = String.format("%.2f", MAX_COST);
+  text("Max value = $" + max_cost + "      # of squares = " + Y_AXIS_SQUARES + "     Value per square = " + max_cost + " / " + Y_AXIS_SQUARES + " = " + String.format("%.1f", (float) MAX_COST / Y_AXIS_SQUARES) + "     Round up to " + ceil((float) MAX_COST / Y_AXIS_SQUARES)+ ": each square worth this value.", LEFT_INDENT, LINE_HEIGHT * 14);
 
   /*
    * Draw the graph
@@ -184,14 +186,14 @@ void setup() {
   // Draw Classic Car Rentals line
   strokeWeight(2);
   stroke(255, 0, 0);                                                          
-  line(0, CLASSIC_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR);
+  line(0, CLASSIC_INTERCEPT * Y_AXIS_SCALE_FACTOR, 500 * X_AXIS_SCALE_FACTOR, (MAX_COST) * Y_AXIS_SCALE_FACTOR);
 
   // Draw Classic Car Rental points
   noStroke();
   fill(255, 0, 0);
   ellipse(150 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 150 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
   ellipse(350 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 350 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
-  ellipse(500 * X_AXIS_SCALE_FACTOR, (CLASSIC_RATE * 500 + CLASSIC_INTERCEPT) * Y_AXIS_SCALE_FACTOR, 8, 8);
+  ellipse(500 * X_AXIS_SCALE_FACTOR, (MAX_COST) * Y_AXIS_SCALE_FACTOR, 8, 8);
 
   // Draw Brampton Rent-a-Car line
   stroke(0, 0, 255);                                                          
@@ -221,7 +223,11 @@ void setup() {
   fill(0);
   text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 33);
   textFont(standard, 14);
-  text("After " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 34);
+  text("The co-ordinates are: (" + String.format("%.2f", INTERSECTION_KM) + ", " + String.format("%.2f", INTERSECTION_COST) + ").", LEFT_INDENT, LINE_HEIGHT * 34);
+  text("This means that after " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 35);
+  text("Prior to the intersection point, Classic Car Rentals is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 36);
+  text("After to the intersection point, Brampton Rent-a-Car is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 37);
+  
 }
 
 // Runs repeatedly
