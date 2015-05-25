@@ -6,15 +6,15 @@ import processing.pdf.*;
  */
 
 // VALUES TO ADJUST FOR EACH RUN
-private static final String STUDENT = new String("Forgione, Cristian");
+private static final String STUDENT = new String("Hepner, Alex");
 
-private static final int CLASSIC_INTERCEPT = 26;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.14;                // Classic Car Rentals per KM rate
+private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.13;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 44.75;        // Brampton Rent-a-Car Cost for first point
-private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 75;       // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 300;      // Brampton Rent-a-Car distance for second point
-private static final float BRAMPTON_RENT_CAR_2_COST = 65;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_1_COST = 43.50;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;       // Brampton Rent-a-Car distance for first point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 325;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_COST = 62.75;        // Brampton Rent-a-Car Cost for second point
 
 
 // Should be no need to change these values after primary development finished
@@ -44,6 +44,7 @@ private static final float Y_AXIS_SQUARE_VALUE = ceil((MAX_COST) / Y_AXIS_SQUARE
 private static final float Y_AXIS_SCALE_FACTOR1 = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
 private static final float Y_AXIS_SCALE_FACTOR2 = Y_AXIS_LENGTH / MAX_COST;
 private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_SCALE_FACTOR1 + Y_AXIS_SCALE_FACTOR2) / 2;
+//private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_SCALE_FACTOR1;
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
 private static final float INTERSECTION_COST = BRAMPTON_RENT_CAR_RATE * INTERSECTION_KM + BRAMPTON_RENT_CAR_INTERCEPT;
 
@@ -225,7 +226,7 @@ void setup() {
   ellipse(BRAMPTON_RENT_CAR_1_DISTANCE * X_AXIS_SCALE_FACTOR, BRAMPTON_RENT_CAR_1_COST * Y_AXIS_SCALE_FACTOR, 8, 8);
   ellipse(BRAMPTON_RENT_CAR_2_DISTANCE * X_AXIS_SCALE_FACTOR, BRAMPTON_RENT_CAR_2_COST * Y_AXIS_SCALE_FACTOR, 8, 8);
 
-  // Draw
+  // Draw lines to illustrate intersection point
   stroke(0, 255, 0);
   strokeWeight(1);
   line(INTERSECTION_KM * X_AXIS_SCALE_FACTOR, 0, INTERSECTION_KM * X_AXIS_SCALE_FACTOR, INTERSECTION_COST * Y_AXIS_SCALE_FACTOR);
