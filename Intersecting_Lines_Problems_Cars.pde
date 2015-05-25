@@ -6,15 +6,15 @@ import processing.pdf.*;
  */
 
 // VALUES TO ADJUST FOR EACH RUN
-private static final String STUDENT = new String("Walker-Sherman, Jonah");
+private static final String STUDENT = new String("Gajer, Ryan");
 
-private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.15;                // Classic Car Rentals per KM rate
+private static final int CLASSIC_INTERCEPT = 21;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 47.50;        // Brampton Rent-a-Car Cost for first point
-private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;       // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 275;      // Brampton Rent-a-Car distance for second point
-private static final float BRAMPTON_RENT_CAR_2_COST = 72.25;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_1_COST = 44.25;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 75;       // Brampton Rent-a-Car distance for first point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 350;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_COST = 63.50;        // Brampton Rent-a-Car Cost for second point
 
 
 // Should be no need to change these values after primary development finished
@@ -240,7 +240,7 @@ void setup() {
   text("Intersection Point", LEFT_INDENT, LINE_HEIGHT * 35);
   textFont(standard, 14);
   text("The co-ordinates are: (" + String.format("%.2f", INTERSECTION_KM) + ", " + String.format("%.2f", INTERSECTION_COST) + ").", LEFT_INDENT, LINE_HEIGHT * 36);
-  text("This means that after " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same, at $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 37);
+  text("This means that at " + String.format("%.2f", INTERSECTION_KM) + " km, the cost of using each rental car company is the same: $" + String.format("%.2f", INTERSECTION_COST) + ".", LEFT_INDENT, LINE_HEIGHT * 37);
   text("Prior to the intersection point, Classic Car Rentals is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 38);
   text("After to the intersection point, Brampton Rent-a-Car is the better deal, as it's cost line is lower on the vertical axis.", LEFT_INDENT, LINE_HEIGHT * 39);
   text("Answers built for: " + STUDENT, LEFT_INDENT, LINE_HEIGHT * 40);
