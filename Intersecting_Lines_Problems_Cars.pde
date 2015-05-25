@@ -6,15 +6,15 @@ import processing.pdf.*;
  */
 
 // VALUES TO ADJUST FOR EACH RUN
-private static final String STUDENT = new String("Gajer, Ryan");
+private static final String STUDENT = new String("Forgione, Cristian");
 
-private static final int CLASSIC_INTERCEPT = 21;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
+private static final int CLASSIC_INTERCEPT = 26;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.14;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 44.25;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_COST = 44.75;        // Brampton Rent-a-Car Cost for first point
 private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 75;       // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 350;      // Brampton Rent-a-Car distance for second point
-private static final float BRAMPTON_RENT_CAR_2_COST = 63.50;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 300;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_COST = 65;        // Brampton Rent-a-Car Cost for second point
 
 
 // Should be no need to change these values after primary development finished
@@ -35,11 +35,15 @@ private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
 private static final int X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
 private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
-private static final float X_AXIS_SCALE_FACTOR = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
+private static final float X_AXIS_SCALE_FACTOR1 = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
+private static final float X_AXIS_SCALE_FACTOR2 = X_AXIS_LENGTH / 500;
+private static final float X_AXIS_SCALE_FACTOR = (X_AXIS_SCALE_FACTOR1 + X_AXIS_SCALE_FACTOR2) / 2;
 private static final float Y_AXIS_LENGTH = LEFT_INDENT*11;
 private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
 private static final float Y_AXIS_SQUARE_VALUE = ceil((MAX_COST) / Y_AXIS_SQUARES);
-private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
+private static final float Y_AXIS_SCALE_FACTOR1 = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
+private static final float Y_AXIS_SCALE_FACTOR2 = Y_AXIS_LENGTH / MAX_COST;
+private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_SCALE_FACTOR1 + Y_AXIS_SCALE_FACTOR2) / 2;
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
 private static final float INTERSECTION_COST = BRAMPTON_RENT_CAR_RATE * INTERSECTION_KM + BRAMPTON_RENT_CAR_INTERCEPT;
 
