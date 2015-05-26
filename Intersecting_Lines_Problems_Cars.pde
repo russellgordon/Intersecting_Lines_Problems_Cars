@@ -6,15 +6,15 @@ import processing.pdf.*;
  */
 
 // VALUES TO ADJUST FOR EACH RUN
-private static final String STUDENT = new String("Hepner, Alex");
+private static final String STUDENT = new String("Stevenson, Henry");
 
-private static final int CLASSIC_INTERCEPT = 33;               // Classic Car Rentals starting cost
-private static final float CLASSIC_RATE = 0.13;                // Classic Car Rentals per KM rate
+private static final float CLASSIC_INTERCEPT = 24;               // Classic Car Rentals starting cost
+private static final float CLASSIC_RATE = 0.11;                // Classic Car Rentals per KM rate
 
-private static final float BRAMPTON_RENT_CAR_1_COST = 43.50;        // Brampton Rent-a-Car Cost for first point
-private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 50;       // Brampton Rent-a-Car distance for first point
-private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 325;      // Brampton Rent-a-Car distance for second point
-private static final float BRAMPTON_RENT_CAR_2_COST = 62.75;        // Brampton Rent-a-Car Cost for second point
+private static final float BRAMPTON_RENT_CAR_1_COST = 46;        // Brampton Rent-a-Car Cost for first point
+private static final float BRAMPTON_RENT_CAR_1_DISTANCE = 100;       // Brampton Rent-a-Car distance for first point
+private static final float BRAMPTON_RENT_CAR_2_DISTANCE = 350;      // Brampton Rent-a-Car distance for second point
+private static final float BRAMPTON_RENT_CAR_2_COST = 63.50;        // Brampton Rent-a-Car Cost for second point
 
 
 // Should be no need to change these values after primary development finished
@@ -32,19 +32,20 @@ private static final float BRAMPTON_RENT_CAR_INTERCEPT = BRAMPTON_RENT_CAR_2_COS
 private static final float MAX_COST = CLASSIC_RATE * 500 + CLASSIC_INTERCEPT;
 
 private static final float X_AXIS_LENGTH = LEFT_INDENT*18;
-private static final int X_AXIS_SQUARES = 40;
+private static final float X_AXIS_SQUARES = 40;
 private static final float SQUARE_SIZE_PIXELS = X_AXIS_LENGTH/X_AXIS_SQUARES;
-private static final float X_AXIS_SQUARE_VALUE = (float) 500 / X_AXIS_SQUARES;
+private static final float X_AXIS_SQUARE_VALUE = 500 / X_AXIS_SQUARES;
 private static final float X_AXIS_SCALE_FACTOR1 = X_AXIS_LENGTH / (X_AXIS_SQUARE_VALUE * X_AXIS_SQUARES);
 private static final float X_AXIS_SCALE_FACTOR2 = X_AXIS_LENGTH / 500;
 private static final float X_AXIS_SCALE_FACTOR = (X_AXIS_SCALE_FACTOR1 + X_AXIS_SCALE_FACTOR2) / 2;
 private static final float Y_AXIS_LENGTH = LEFT_INDENT*11;
-private static final int Y_AXIS_SQUARES = ceil(Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS);
+private static final float Y_AXIS_SQUARES = Y_AXIS_LENGTH / SQUARE_SIZE_PIXELS;
 private static final float Y_AXIS_SQUARE_VALUE = ceil((MAX_COST) / Y_AXIS_SQUARES);
 private static final float Y_AXIS_SCALE_FACTOR1 = Y_AXIS_LENGTH / (Y_AXIS_SQUARE_VALUE * Y_AXIS_SQUARES);
-private static final float Y_AXIS_SCALE_FACTOR2 = Y_AXIS_LENGTH / MAX_COST;
-private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_SCALE_FACTOR1 + Y_AXIS_SCALE_FACTOR2) / 2;
-//private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_SCALE_FACTOR1;
+//private static final float Y_AXIS_SCALE_FACTOR2 = Y_AXIS_LENGTH / MAX_COST;
+//private static final float Y_AXIS_SCALE_FACTOR = (Y_AXIS_SCALE_FACTOR1 + Y_AXIS_SCALE_FACTOR2) / 2;
+private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_SCALE_FACTOR1;
+//private static final float Y_AXIS_SCALE_FACTOR = Y_AXIS_SCALE_FACTOR2;
 private static final float INTERSECTION_KM = (BRAMPTON_RENT_CAR_INTERCEPT - CLASSIC_INTERCEPT) / (CLASSIC_RATE - BRAMPTON_RENT_CAR_RATE);
 private static final float INTERSECTION_COST = BRAMPTON_RENT_CAR_RATE * INTERSECTION_KM + BRAMPTON_RENT_CAR_INTERCEPT;
 
@@ -56,8 +57,6 @@ PFont bold;    // boldface type
 
 // Runs once
 void setup() {
-
-  println(Y_AXIS_SCALE_FACTOR);
 
   // Make canvas letter paper-sized
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -116,7 +115,7 @@ void setup() {
   textFont(standard, 14);
   text("Max value = 500      # of squares = " + X_AXIS_SQUARES + "     Value per square = 500 / " + X_AXIS_SQUARES + " = " + String.format("%.1f", (float) 500 / X_AXIS_SQUARES) + "     Keep value: mark every other square as 25.", LEFT_INDENT, LINE_HEIGHT * 13);
   String max_cost = String.format("%.2f", MAX_COST);
-  text("Max value = $" + max_cost + "      # of squares = " + Y_AXIS_SQUARES + "     Value per square = " + max_cost + " / " + Y_AXIS_SQUARES + " = " + String.format("%.1f", (float) MAX_COST / Y_AXIS_SQUARES) + "     Round up to " + ceil((float) MAX_COST / Y_AXIS_SQUARES)+ ": each square worth this value.", LEFT_INDENT, LINE_HEIGHT * 14);
+  text("Max value = $" + max_cost + "      # of squares = " + floor(Y_AXIS_SQUARES) + "     Value per square = " + max_cost + " / " + floor(Y_AXIS_SQUARES) + " = " + String.format("%.1f", (float) MAX_COST / floor(Y_AXIS_SQUARES)) + "     Round up to " + ceil((float) MAX_COST / Y_AXIS_SQUARES)+ ": each square worth this value.", LEFT_INDENT, LINE_HEIGHT * 14);
 
   /*
    * Draw the graph
@@ -125,7 +124,7 @@ void setup() {
   pushMatrix();
 
   // Draw axes
-  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 33);  
+  translate(LEFT_INDENT * 1.5, LINE_HEIGHT * 33);
   scale(1, -1);
   strokeWeight(2);
 
@@ -231,7 +230,6 @@ void setup() {
   strokeWeight(1);
   line(INTERSECTION_KM * X_AXIS_SCALE_FACTOR, 0, INTERSECTION_KM * X_AXIS_SCALE_FACTOR, INTERSECTION_COST * Y_AXIS_SCALE_FACTOR);
   line(0, INTERSECTION_COST * Y_AXIS_SCALE_FACTOR, INTERSECTION_KM * X_AXIS_SCALE_FACTOR, INTERSECTION_COST * Y_AXIS_SCALE_FACTOR);
-
 
   // Restore current co-ordinate system positions
   popMatrix();
